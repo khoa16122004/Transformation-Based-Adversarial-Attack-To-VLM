@@ -22,7 +22,7 @@ if __name__ == "__main__":
     seed_everything(args.seed)
     
     img_path = r"images/lionsea.jpg"
-    img = cv2.resize(cv2.imread('images/dog.jpg'), (224, 224))
+    img = cv2.resize(cv2.imread('images/lionsea.jpg'), (224, 224))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     c_gt = "A proud sea lion basking in the sun on the rocks."
     c_tar = "A proud dog basking in the sun on the rocks."
