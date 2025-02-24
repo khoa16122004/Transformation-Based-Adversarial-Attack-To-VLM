@@ -9,10 +9,11 @@ from fitness import Fitness
 def parse_args():
     parser = argparse.ArgumentParser(description="Genetic Algorithm for Image Patch Manipulation")
     parser.add_argument('--pop_size', type=int, default=10, help="Population size")
-    parser.add_argument('--n_iters', type=int, default=100, help="Number of iterations for the genetic algorithm")
+    parser.add_argument('--max_iter', type=int, default=100, help="Number of iterations for the genetic algorithm")
     parser.add_argument('--seed', type=int, default=22520691)
     parser.add_argument('--model_name', type=str, default='ViT-H-14')
-    
+    parser.add_argument("--F", type=float, default=0.8)
+    parser.add_argument("--CR", type=float, default=0.9)
     return parser.parse_args()
 
 if __name__ == "__main__":
