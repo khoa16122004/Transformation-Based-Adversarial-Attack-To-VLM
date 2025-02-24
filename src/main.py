@@ -23,7 +23,7 @@ if __name__ == "__main__":
     
     img_path = r"images/lionsea.jpg"
     img = cv2.resize(cv2.imread('images/dog.jpg'), (224, 224))
-    c_gt = "A proud sea lion basking in the sun on the rocks, with a seabird nearby."
+    c_gt = "A proud sea lion basking in the sun on the rocks."
     
     vlm = OpenCLIP(args.model_name)
     fitness = Fitness(vlm,
