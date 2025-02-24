@@ -24,11 +24,12 @@ if __name__ == "__main__":
     img_path = r"images/lionsea.jpg"
     img = cv2.resize(cv2.imread('images/dog.jpg'), (224, 224))
     c_gt = "A proud sea lion basking in the sun on the rocks."
-    
+    c_tar = "A proud dog basking in the sun on the rocks."
     vlm = OpenCLIP(args.model_name)
     fitness = Fitness(vlm,
                       img,
                       c_gt,
+                      c_tar
                       )
     
     func = fitness.IG_IT_fitness
