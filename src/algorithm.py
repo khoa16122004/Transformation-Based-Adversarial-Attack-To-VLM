@@ -5,7 +5,9 @@ from PIL import Image
 def DE_vectorize(func, bounds: List[Tuple[float, float]], pop_size: int, F: float, CR: float, max_iter: int):
     dim = len(bounds)
     pop = np.random.uniform(low=[b[0] for b in bounds], high=[b[1] for b in bounds], size=(pop_size, dim))
-    fitness = np.array([func(ind)[0] for ind in pop])
+    print("Pop shape: ", pop.shape)
+    
+    fitness = func(pop)
     history = []
     fitness_history = []
     
@@ -26,10 +28,7 @@ def DE_vectorize(func, bounds: List[Tuple[float, float]], pop_size: int, F: floa
         mask[np.arange(pop_size), j_rand] = True
         u = np.where(mask, v, pop) # pop_size x D
         
-        new_fitness = []
-        for u_ in u:
-            new_fitness.append(func(u_)[0])
-        new_fitness = np.array(new_fitness)
+        new_fitness = func(u)
         improved = new_fitness < fitness
         pop[improved] = u[improved]
         fitness[improved] = new_fitness[improved]
