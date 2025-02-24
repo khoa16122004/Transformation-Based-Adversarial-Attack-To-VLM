@@ -21,7 +21,7 @@ def apply_affine_transform(img, params):
 
 img = cv2.resize(cv2.imread('images/lionsea.jpg'), (224, 224))
 cv2.imwrite("original.jpg", img)  
-params = [1.1091362 ,  1.34097287,  0.09971993, -0.18609963, -0.07036193]
+params =  [1.25564167,  1.05940296, -0.10631726,  0.05034346, -0.17023813]
 transformed_img = apply_affine_transform(img, params)
 
 cv2.imwrite("output.jpg", transformed_img)  
