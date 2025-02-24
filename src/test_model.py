@@ -8,10 +8,9 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model, _, preprocess = open_clip.create_model_and_transforms("ViT-H-14", pretrained='laion2B-s32B-b79K')
 tokenizer = open_clip.get_tokenizer("ViT-H-14")
 model.eval().cuda()
-
-img = cv2.resize(cv2.imread('images/lionsea.jpg'), (224, 224))
+print("Khoa")
+img = cv2.resize(cv2.imread('output.jpg'), (224, 224))
 image = preprocess(Image.fromarray(img)).cuda().unsqueeze(0) # 
-print(image.shape)
 text = tokenizer(["A proud sea lion basking in the sun on the rocks, with a seabird nearby.", 
                   "who are you?", "A proud dog basking in the sun on the rocks, with a seabird nearby."]).to(device)
 

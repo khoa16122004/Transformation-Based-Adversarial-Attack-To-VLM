@@ -20,8 +20,10 @@ def apply_affine_transform(img, sx=1.0, sy=1.0, shx=0.0, shy=0.0, theta=0.0):
     
     return transformed_img
 
-img = cv2.resize(cv2.imread('images/dog.jpg'), (224, 224))
+img = cv2.resize(cv2.imread('images/lionsea.jpg'), (224, 224))
 cv2.imwrite("original.jpg", img)  
-transformed_img = apply_affine_transform(img, sx=1.0, sy=1.0, shx=0.2, shy=0.2, theta=-0.1)
+transformed_img = apply_affine_transform(img, sx=1.42261337, sy=1.10903108 , 
+                                         shx= 0.0944826, shy= -0.14442866, 
+                                         theta=0.23890031)
 
 cv2.imwrite("output.jpg", transformed_img)  
