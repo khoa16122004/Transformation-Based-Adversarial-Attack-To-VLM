@@ -18,7 +18,7 @@ class Fitness:
         #     theta \in [-np.pi/6, np.pi/6]
         # """
         
-        [sx, sy, shx, shy, theta] = params
+        [sx, sy, shx, shy, theta] = params.tolist()
         
         h, w = img.shape[:2]
         
