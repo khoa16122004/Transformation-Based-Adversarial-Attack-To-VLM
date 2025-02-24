@@ -4,6 +4,7 @@ from utils import seed_everything
 from models import OpenCLIP
 from algorithm import DE_vectorize
 import cv2
+from fitness import Fitness
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Genetic Algorithm for Image Patch Manipulation")
