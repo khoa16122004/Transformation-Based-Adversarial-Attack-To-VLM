@@ -1,6 +1,7 @@
 import numpy as np
 from typing import List, Tuple
 from PIL import Image
+from tqdm import tqdm
 
 def DE_vectorize(func, bounds: List[Tuple[float, float]], pop_size: int, F: float, CR: float, max_iter: int):
     dim = len(bounds)
@@ -10,7 +11,7 @@ def DE_vectorize(func, bounds: List[Tuple[float, float]], pop_size: int, F: floa
     history = []
     fitness_history = []
     
-    for _ in range(max_iter):
+    for _ in tqdm(range(max_iter)):
         r1, r2, r3 = [], [], []
         for i in range(pop_size):
             r1_, r2_, r3_ = np.random.choice([idx for idx in range(pop_size) if idx != i], size=3, replace=False) # not duplicated sample
