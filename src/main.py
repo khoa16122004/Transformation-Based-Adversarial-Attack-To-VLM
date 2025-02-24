@@ -31,13 +31,13 @@ if __name__ == "__main__":
                       c_gt,
                       )
     
-    func = fitness.IG_IT_fitness
     
     # [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/6, np.pi/6]]
     bounds = [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/6, np.pi/6]]
     
     best_solution, best_value, history, fitness_history = DE_vectorize(img, 
-                                                                       func=func, bounds=bounds,
+                                                                       func=fitness.IG_IT_fitness,
+                                                                       bounds=bounds,
                                                                        pop_size=args.pop_size,
                                                                        F=args.F,
                                                                        CR=args.CR,
