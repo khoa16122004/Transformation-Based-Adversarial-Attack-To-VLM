@@ -11,7 +11,7 @@ class Fitness:
         self.cos = nn.CosineSimilarity(dim=1, eps=1e-6)
         self.img_cle = img_cle
         
-    def apply_affine_transform(self, img, params):
+    def apply_affine_transform(self, params):
         # """
         #     s_x, s_y \in [0.8, 1.5]
         #     shx, shy \in [-0.2, 0.2]
@@ -19,7 +19,7 @@ class Fitness:
         # """
         [sx, sy, shx, shy, theta] = params.tolist()
         
-        h, w = img.shape[:2]
+        h, w = self.img_cle.shape[:2]
         
         center_x, center_y = w / 2, h / 2
 
@@ -28,7 +28,7 @@ class Fitness:
             [sx * np.sin(theta) + shy * np.cos(theta),  sy * np.cos(theta) + shy * np.sin(theta), (1 - (sx * np.sin(theta) + shy * np.cos(theta))) * center_x + (-sy * np.cos(theta) - shy * np.sin(theta)) * center_y]
         ], dtype=np.float32)
 
-        transformed_img = cv2.warpAffine(img, affine_matrix, (w, h), flags=cv2.INTER_LINEAR)
+        transformed_img = cv2.warpAffine(self.img_cle, affine_matrix, (w, h), flags=cv2.INTER_LINEAR)
         
         return transformed_img   
 

@@ -12,7 +12,7 @@ print("Khoa")
 img = cv2.resize(cv2.imread('output.jpg'), (224, 224))
 image = preprocess(Image.fromarray(img)).cuda().unsqueeze(0) # 
 text = tokenizer(["A proud sea lion basking in the sun on the rocks, with a seabird nearby.", 
-                  "who are you?", "A proud dog basking in the sun on the rocks, with a seabird nearby."]).to(device)
+                  "who are you?", "A dog runing in the grass."]).to(device)
 
 with torch.no_grad(), torch.cuda.amp.autocast():
     image_features = model.encode_image(image)
