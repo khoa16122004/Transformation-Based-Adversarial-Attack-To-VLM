@@ -21,7 +21,6 @@ class OpenCLIP:
     @torch.no_grad()
     def image_encode(self, imgs: List[Image.Image]):
         img_torch = torch.stack([self.preprocess(img) for img in imgs]).cuda()
-        print(img_torch.shape)
         return self.model.encode_image(img_torch)
     
         
