@@ -34,10 +34,12 @@ class Fitness:
 
     def IG_IT_fitness(self, X):
         imgs = [Image.fromarray(self.apply_affine_transform(x)) for x in X]
+        imgs[0].save("test.jpg")
         img_adv_features = self.vlm.image_encode(imgs)
         IG_cos = self.cos(img_adv_features, self.c_groundtruth) # min
         IT_cos = self.cos(img_adv_features, self.c_target) # max
         fitness = IG_cos - IT_cos
+        print(fitness[0])
         return fitness.cpu().numpy()
 
     
