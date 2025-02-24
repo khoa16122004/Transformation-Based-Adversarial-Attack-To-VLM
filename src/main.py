@@ -1,7 +1,7 @@
 import argparse
 import numpy as np
 from utils import seed_everything
-from model import OpenCLIP
+from models import OpenCLIP
 from algorithm import DE_vectorize
 import cv2
 
