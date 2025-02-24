@@ -41,6 +41,9 @@ if __name__ == "__main__":
                                                                        pop_size=args.pop_size,
                                                                        F=args.F,
                                                                        CR=args.CR,
-                                                                       max_iter=args.max_iter)    
+                                                                       max_iter=args.max_iter) 
+    
+    print("Best solution: ", best_solution)
+    print("Best value: ", best_value)
 
     

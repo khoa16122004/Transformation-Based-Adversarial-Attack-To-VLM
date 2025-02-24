@@ -5,7 +5,6 @@ from PIL import Image
 def DE_vectorize(func, bounds: List[Tuple[float, float]], pop_size: int, F: float, CR: float, max_iter: int):
     dim = len(bounds)
     pop = np.random.uniform(low=[b[0] for b in bounds], high=[b[1] for b in bounds], size=(pop_size, dim))
-    print("Pop shape: ", pop.shape)
     
     fitness = func(pop)
     history = []
