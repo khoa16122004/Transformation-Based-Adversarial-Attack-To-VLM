@@ -20,7 +20,6 @@ def parse_args():
     parser.add_argument('--n_iters', type=int, default=100, help="Number of iterations for the genetic algorithm")
     parser.add_argument('--seed', type=int, default=22520691)
     parser.add_argument('--model_name', type=str, default='ViT-H-14')
-    parser.add_argument('--fitness_type', type=str)
     
     return parser.parse_args()
 
@@ -44,11 +43,11 @@ if __name__ == "__main__":
     # [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/6, np.pi/6]]
     bounds = [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/6, np.pi/6]]
     
-    best_solution, best_value, history, fitness_history = DE_vectorize(img,
-                                                      func=func, bounds=bounds,
-                                                      pop_size=args.pop_size,
-                                                      F=args.F,
-                                                      CR=args.CR,
-                                                      max_iter=args.max_iter)    
+    best_solution, best_value, history, fitness_history = DE_vectorize(img, 
+                                                                       func=func, bounds=bounds,
+                                                                       pop_size=args.pop_size,
+                                                                       F=args.F,
+                                                                       CR=args.CR,
+                                                                       max_iter=args.max_iter)    
 
     
