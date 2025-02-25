@@ -42,3 +42,43 @@ def DE_vectorize(func, bounds: List[Tuple[float, float]], pop_size: int, F: floa
     return best_solution, best_value, history, fitness_history
 
 
+def PSO(func, bounds: List[Tuple[float, float]], pop_size: int, max_iter: int, w: float = 0.5, c1: float = 1.5, c2: float = 1.5):
+    dim = len(bounds)
+    pop = np.random.uniform(low=[b[0] for b in bounds], high=[b[1] for b in bounds], size=(pop_size, dim))
+    vel = np.random.uniform(-1, 1, size=(pop_size, dim))
+    
+    fitness = func(pop)
+    pbest = pop.copy() # population best
+    pbest_fitness = fitness.copy()
+    gbest_idx = np.argmin(fitness) 
+    gbest = pop[gbest_idx] # partical best
+    gbest_fitness = fitness[gbest_idx] # partical best fitness
+    history = []
+    fitness_history = []
+    
+    for _ in range(max_iter):
+        r1, r2 = np.random.rand(pop_size, dim), np.random.rand(pop_size, dim)
+        vel = w * vel + c1 * r1 * (pbest - pop) + c2 * r2 * (gbest - pop) # create new
+        
+        # new swarm
+        pop = np.clip(pop + vel, [b[0] for b in bounds], [b[1] for b in bounds])
+        new_fitness = func(pop)
+        
+        # update best swarm by the better canddidatess in new swarm
+        mask = new_fitness < pbest_fitness
+        mask = mask.reshape(-1,)
+        pbest[mask] = pop[mask]
+        pbest_fitness[mask] = new_fitness[mask]
+        
+        # update the best candidate
+        if np.min(new_fitness) < gbest_fitness:
+            gbest_idx = np.argmin(new_fitness)
+            gbest = pop[gbest_idx]
+            gbest_fitness = new_fitness[gbest_idx]
+            
+        history.append(pop.copy())
+        fitness_history.append(new_fitness.copy())
+        
+    return gbest, gbest_fitness, history
+
+

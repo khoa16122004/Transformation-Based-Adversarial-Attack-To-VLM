@@ -2,7 +2,7 @@ import argparse
 import numpy as np
 from utils import seed_everything
 from models import OpenCLIP
-from algorithm import DE_vectorize
+from algorithm import DE_vectorize, PSO
 import cv2
 from fitness import Fitness
 
@@ -14,6 +14,7 @@ def parse_args():
     parser.add_argument('--model_name', type=str, default='ViT-H-14')
     parser.add_argument("--F", type=float, default=0.8)
     parser.add_argument("--CR", type=float, default=0.9)
+    parser.add_argument("--algorithm", type=str, choices=["DE", "PSO"], default="DE")
     return parser.parse_args()
 
 if __name__ == "__main__":
@@ -37,14 +38,18 @@ if __name__ == "__main__":
     
     # [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/6, np.pi/6]]
     bounds = [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/5, np.pi/5], [0, 1], [0.5, 1.5]]
-    
-    best_solution, best_value, history, fitness_history = DE_vectorize(func=fitness.IG_IT_fitness,
-                                                                       bounds=bounds,
-                                                                       pop_size=args.pop_size,
-                                                                       F=args.F,
-                                                                       CR=args.CR,
-                                                                       max_iter=args.max_iter) 
-    
+    if args.algorithm == 'DE':
+        best_solution, best_value, history, fitness_history = DE_vectorize(func=fitness.IG_IT_fitness,
+                                                                            bounds=bounds,
+                                                                            pop_size=args.pop_size,
+                                                                            F=args.F,
+                                                                            CR=args.CR,
+                                                                            max_iter=args.max_iter) 
+    elif args.algorithm == "PSO":
+        best_solution, best_value, history, fitness_history = PSO(func=fitness.IG_IT_fitness,
+                                                                  bounds=bounds,
+                                                                  pop_size=args.pop_size,
+                                                                  max_iter=args.max_iter) 
     
     print("Best solution: ", best_solution)
     print("Best value: ", best_value)
