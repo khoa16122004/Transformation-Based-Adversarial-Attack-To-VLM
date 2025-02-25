@@ -45,7 +45,10 @@ if __name__ == "__main__":
                                                                        CR=args.CR,
                                                                        max_iter=args.max_iter) 
     
+    
     print("Best solution: ", best_solution)
     print("Best value: ", best_value)
-
+    final_pop = history[-1]
+    
+    print("Accepted: ", final_pop[np.abs(final_pop[2]) < 0.3 and np.abs(final_pop[3]) < 0.3])
     
