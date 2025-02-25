@@ -5,6 +5,7 @@ from models import OpenCLIP
 from algorithm import DE_vectorize, PSO
 import cv2
 from fitness import Fitness
+import os
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Genetic Algorithm for Image Patch Manipulation")
@@ -15,45 +16,51 @@ def parse_args():
     parser.add_argument("--F", type=float, default=0.8)
     parser.add_argument("--CR", type=float, default=0.9)
     parser.add_argument("--algorithm", type=str, choices=["DE", "PSO"], default="DE")
+    parser.add_argument("--anotation_file", type=str)
+    parser.add_argument("--img_dir", type=str)
     return parser.parse_args()
 
 if __name__ == "__main__":
     args = parse_args()
-
+    success_rate = 0
     seed_everything(args.seed)
     
-    img_path = r"images/lionsea.jpg"
-    img = cv2.resize(cv2.imread('images/lionsea.jpg'), (224, 224))
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    c_gt = "A proud sea lion basking in the sun on the rocks."
-    c_tar = "A bird flying in the sky."
-    vlm = OpenCLIP(args.model_name)
-    fitness = Fitness(vlm,
-                      img,
-                      c_gt,
-                      c_tar
-                      )
     
-    func = fitness.IG_IT_fitness
+    with open(args.annotation_file, "r") as f:
+        lines = [line.strip().split("\t") for line in f.readlines()]
     
-    # [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/6, np.pi/6]]
-    bounds = [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/5, np.pi/5], [0, 1], [0.5, 1.5]]
-    if args.algorithm == 'DE':
-        best_solution, best_value, history, fitness_history = DE_vectorize(func=fitness.IG_IT_fitness,
-                                                                            bounds=bounds,
-                                                                            pop_size=args.pop_size,
-                                                                            F=args.F,
-                                                                            CR=args.CR,
-                                                                            max_iter=args.max_iter) 
-    elif args.algorithm == "PSO":
-        best_solution, best_value, history, fitness_history = PSO(func=fitness.IG_IT_fitness,
-                                                                  bounds=bounds,
-                                                                  pop_size=args.pop_size,
-                                                                  max_iter=args.max_iter) 
-    
-    print("Best solution: ", best_solution)
-    print("Best value: ", best_value)
-    final_pop = history[-1]
-    
-    print("Accepted: ", final_pop[np.abs(final_pop[2]) < 0.3 and np.abs(final_pop[3]) < 0.3])
-    
+    for i, [img_id, c_gt, c_tar] in enumerate(0, 100):
+        img_path = os.path.join(args.img_dir, img_id)
+        
+        img = cv2.resize(cv2.imread(img_path), (224, 224))
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        vlm = OpenCLIP(args.model_name)
+        fitness = Fitness(vlm,
+                        img,
+                        c_gt,
+                        c_tar
+                        )
+        
+        func = fitness.IG_IT_fitness
+        bounds = [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/5, np.pi/5], [0, 1], [0.5, 1.5]]
+        if args.algorithm == 'DE':
+            best_solution, best_value, history, fitness_history = DE_vectorize(func=fitness.IG_IT_fitness,
+                                                                                bounds=bounds,
+                                                                                pop_size=args.pop_size,
+                                                                                F=args.F,
+                                                                                CR=args.CR,
+                                                                                max_iter=args.max_iter) 
+        elif args.algorithm == "PSO":
+            best_solution, best_value, history, fitness_history = PSO(func=fitness.IG_IT_fitness,
+                                                                    bounds=bounds,
+                                                                    pop_size=args.pop_size,
+                                                                    max_iter=args.max_iter) 
+        
+        print("Best solution: ", best_solution)
+        print("Best value: ", best_value)
+        
+        if best_value <= 0:
+            success_rate += 1      
+        break
+    print("Success rate: ", success_rate / 100)  

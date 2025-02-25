@@ -80,6 +80,6 @@ def PSO(func, bounds: List[Tuple[float, float]], pop_size: int, max_iter: int, w
         print("Min fitness: ", np.min(gbest_fitness))
 
         
-    return gbest, gbest_fitness, history
+    return gbest, gbest_fitness, history, fitness_history
 
 
