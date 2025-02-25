@@ -12,13 +12,14 @@ def seed_everything(seed: int):
     torch.backends.cudnn.benchmark = True
     
 def log(fitness_history, history, file_path):
+    print()
     data = {
         "fitness_history": [fh.tolist() for fh in fitness_history],  # Chuyển np.array thành list
         "history": [h.tolist() for h in history]
     }
     
     with open(file_path, "w") as f:
-        json.dump(data, f)
+        json.dump(data, f, indent=6)
             
         
         
