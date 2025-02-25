@@ -77,7 +77,7 @@ def PSO(func, bounds: List[Tuple[float, float]], pop_size: int, max_iter: int, w
             gbest_fitness = new_fitness[gbest_idx]
             
         history.append(pop.copy())
-        fitness_history.append(new_fitness.copy())
+        fitness_history.append(gbest_fitness.copy())
         
     return gbest, gbest_fitness, history
 
