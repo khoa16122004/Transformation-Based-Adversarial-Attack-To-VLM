@@ -63,7 +63,7 @@ def PSO(func, bounds: List[Tuple[float, float]], pop_size: int, max_iter: int, w
         # new swarm
         pop = np.clip(pop + vel, [b[0] for b in bounds], [b[1] for b in bounds])
         new_fitness = func(pop)
-        
+        print("Min fitness: ", np.min(new_fitness))
         # update best swarm by the better canddidatess in new swarm
         mask = new_fitness < pbest_fitness
         mask = mask.reshape(-1,)
