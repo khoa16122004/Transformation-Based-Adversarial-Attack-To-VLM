@@ -10,6 +10,7 @@ class Fitness:
         self.c_target = self.vlm.text_encode(c_tar)
         self.cos = nn.CosineSimilarity(dim=1, eps=1e-6)
         self.img_cle = img_cle
+        self.img_cle_features = self.vlm.image_encode(Image.fromarray(self.img_cle))
     
     
     def apply_gamma_correction(self, img, gamma):
@@ -47,7 +48,8 @@ class Fitness:
         img_adv_features = self.vlm.image_encode(imgs)
         IG_cos = self.cos(img_adv_features, self.c_groundtruth) # min
         IT_cos = self.cos(img_adv_features, self.c_target) # max
-        fitness = IG_cos - IT_cos
+        II_cos = self.cos(img_adv_features, self.img_cle_features) # max    
+        fitness = IG_cos - IT_cos - II_cos
         return fitness.cpu().numpy()
 
     
