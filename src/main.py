@@ -25,8 +25,8 @@ if __name__ == "__main__":
     success_rate = 0
     seed_everything(args.seed)
     output_dir = os.path.join("log", f"algo={args.algorithm}_popsize={args.pop_size}_maxiter={args.max_iter}")
-    os.mkdir(output_dir, exist_ok=True)
-    os.mkdir(os.path.join(output_dir, "img"), exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(os.path.join(output_dir, "img"), exist_ok=True)
     
     
     with open(args.annotation_file, "r") as f:
