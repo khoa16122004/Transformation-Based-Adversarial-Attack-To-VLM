@@ -36,7 +36,7 @@ if __name__ == "__main__":
     func = fitness.IG_IT_fitness
     
     # [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/6, np.pi/6]]
-    bounds = [[0.8, 1.5], [0.8, 1.5], [-0.4, 0.4], [-0.4, 0.4], [-np.pi/5, np.pi/5], [0, 1], [0.5, 1.5]]
+    bounds = [[0.8, 1.5], [0.8, 1.5], [-0.5, 0.5], [-0.5, 0.5], [-np.pi/5, np.pi/5], [0, 1], [0.5, 1.5]]
     
     best_solution, best_value, history, fitness_history = DE_vectorize(func=fitness.IG_IT_fitness,
                                                                        bounds=bounds,
