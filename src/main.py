@@ -60,8 +60,8 @@ if __name__ == "__main__":
                                                                     pop_size=args.pop_size,
                                                                     max_iter=args.max_iter) 
         
-        print("Best solution: ", best_solution)
-        print("Best value: ", best_value)
+        # print("Best solution: ", best_solution)
+        # print("Best value: ", best_value)
         
         img = fitness.apply_affine_transform(best_solution)
         
