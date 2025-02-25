@@ -16,7 +16,7 @@ def parse_args():
     parser.add_argument("--F", type=float, default=0.8)
     parser.add_argument("--CR", type=float, default=0.9)
     parser.add_argument("--algorithm", type=str, choices=["DE", "PSO"], default="DE")
-    parser.add_argument("--anotation_file", type=str)
+    parser.add_argument("--annotation_file", type=str)
     parser.add_argument("--img_dir", type=str)
     return parser.parse_args()
 
