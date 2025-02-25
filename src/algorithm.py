@@ -34,7 +34,7 @@ def DE_vectorize(func, bounds: List[Tuple[float, float]], pop_size: int, F: floa
         fitness[improved] = new_fitness[improved]
         history.append(pop.copy())
         fitness_history.append(fitness.copy())
-        print("Min Fitness: ", np.min(fitness))
+        # print("Min Fitness: ", np.min(fitness))
         
     best_idx = np.argmin(fitness)
     best_solution = pop[best_idx]
