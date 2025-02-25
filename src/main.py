@@ -68,7 +68,7 @@ if __name__ == "__main__":
         img_name = os.path.join(output_dir, "img", str(i))
         if best_value <= 0:
             success_rate += 1  
-            img_name += "_success.png"
+            img_name += "_success"
         img_path = img_name + ".png"
         cv2.imwrite(img_path, img)
                 
