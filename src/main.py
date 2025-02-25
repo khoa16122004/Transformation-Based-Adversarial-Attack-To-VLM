@@ -63,5 +63,5 @@ if __name__ == "__main__":
         if best_value <= 0:
             success_rate += 1      
         break
-    log(fitness_history, history, os.path.join(log, f"algo={args.algorithm}_popsize={args.pop_size}_maxiter={args.max_iter}.json"))
+    log(fitness_history, history, os.path.join("log", f"algo={args.algorithm}_popsize={args.pop_size}_maxiter={args.max_iter}.json"))
     print("Success rate: ", success_rate / 100)  
