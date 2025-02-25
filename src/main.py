@@ -25,7 +25,7 @@ if __name__ == "__main__":
     img = cv2.resize(cv2.imread('images/lionsea.jpg'), (224, 224))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     c_gt = "A proud sea lion basking in the sun on the rocks."
-    c_tar = "A proud dog basking in the sun on the rocks."
+    c_tar = "A bird flying in the sky."
     vlm = OpenCLIP(args.model_name)
     fitness = Fitness(vlm,
                       img,
@@ -36,7 +36,7 @@ if __name__ == "__main__":
     func = fitness.IG_IT_fitness
     
     # [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/6, np.pi/6]]
-    bounds = [[0.8, 1.5], [0.8, 1.5], [-0.5, 0.5], [-0.5, 0.5], [-np.pi/5, np.pi/5], [0, 1], [0.5, 1.5]]
+    bounds = [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/5, np.pi/5], [0, 1], [0.5, 1.5]]
     
     best_solution, best_value, history, fitness_history = DE_vectorize(func=fitness.IG_IT_fitness,
                                                                        bounds=bounds,
