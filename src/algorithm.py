@@ -56,7 +56,7 @@ def PSO(func, bounds: List[Tuple[float, float]], pop_size: int, max_iter: int, w
     history = []
     fitness_history = []
     
-    for _ in range(max_iter):
+    for _ in tqdm(range(max_iter)):
         r1, r2 = np.random.rand(pop_size, dim), np.random.rand(pop_size, dim)
         vel = w * vel + c1 * r1 * (pbest - pop) + c2 * r2 * (gbest - pop) # create new
         
