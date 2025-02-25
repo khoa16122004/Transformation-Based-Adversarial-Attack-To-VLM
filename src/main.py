@@ -29,7 +29,7 @@ if __name__ == "__main__":
     with open(args.annotation_file, "r") as f:
         lines = [line.strip().split("\t") for line in f.readlines()]
     
-    for i, [img_id, c_gt, c_tar] in enumerate(range(100)):
+    for i, [img_id, c_gt, c_tar] in enumerate(lines):
         img_path = os.path.join(args.img_dir, img_id)
         
         img = cv2.resize(cv2.imread(img_path), (224, 224))
