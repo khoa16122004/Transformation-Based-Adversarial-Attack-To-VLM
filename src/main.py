@@ -46,7 +46,7 @@ if __name__ == "__main__":
                         )
         
         func = fitness.IG_IT_fitness
-        bounds = [[0.8, 1.5], [0.8, 1.5], [-0.2, 0.2], [-0.2, 0.2], [-np.pi/5, np.pi/5], [0, 1], [0.5, 1.5]]
+        bounds = [[0.8, 1.5], [0.8, 1.5], [-0.15, 0.15], [-0.15, 0.15], [-np.pi/5, np.pi/5], [0, 1], [0.5, 1.5]]
         if args.algorithm == 'DE':
             best_solution, best_value, history, fitness_history = DE_vectorize(func=fitness.IG_IT_fitness,
                                                                                 bounds=bounds,
@@ -70,9 +70,10 @@ if __name__ == "__main__":
             success_rate += 1  
             img_name += "_success"
         img_path = img_name + ".png"
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         cv2.imwrite(img_path, img)
                 
-        break
+        # break
     log(fitness_history, history, os.path.join(output_dir, f"log.json"))
     
     print("Success rate: ", success_rate / 100)  
