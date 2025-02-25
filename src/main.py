@@ -24,6 +24,9 @@ if __name__ == "__main__":
     args = parse_args()
     success_rate = 0
     seed_everything(args.seed)
+    output_dir = os.path.join("log", f"algo={args.algorithm}_popsize={args.pop_size}_maxiter={args.max_iter}")
+    os.mkdir(output_dir, exist_ok=True)
+    os.mkdir(os.path.join(output_dir, "img"), exist_ok=True)
     
     
     with open(args.annotation_file, "r") as f:
@@ -60,8 +63,16 @@ if __name__ == "__main__":
         print("Best solution: ", best_solution)
         print("Best value: ", best_value)
         
+        img = fitness.apply_affine_transform(best_solution)
+        
+        img_name = os.path.join(output_dir, "img", str(i))
         if best_value <= 0:
-            success_rate += 1      
+            success_rate += 1  
+            img_name += "_success.png"
+        img_path = img_name + ".png"
+        cv2.imwrite(img_path, img)
+                
         break
-    log(fitness_history, history, os.path.join("log", f"algo={args.algorithm}_popsize={args.pop_size}_maxiter={args.max_iter}.json"))
+    log(fitness_history, history, os.path.join(output_dir, f"log.json"))
+    
     print("Success rate: ", success_rate / 100)  
